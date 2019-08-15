@@ -15,21 +15,20 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+import { cleanup, render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 
-const MuiTypography = ({ variant, children, testid, ...rest }) => {
-  return (
-    <Typography {...rest} variant={variant} data-testid={testid}>
-      {children}
-    </Typography>
-  );
-};
+import TableLoader from '../TableLoader';
 
-MuiTypography.propTypes = {
-  variant: PropTypes.string.isRequired,
-  children: PropTypes.any.isRequired,
-  testid: PropTypes.string,
-};
+describe('<TableLoader />', () => {
+  afterEach(() => {
+    cleanup();
+    jest.clearAllMocks();
+  });
 
-export default MuiTypography;
+  it('renders tableLoader', async () => {
+    const { getByTestId } = render(<TableLoader />);
+
+    getByTestId('table-loader');
+  });
+});
