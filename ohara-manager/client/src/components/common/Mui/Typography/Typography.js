@@ -21,7 +21,7 @@ import Typography from '@material-ui/core/Typography';
 const MuiTypography = ({
   variant,
   children,
-  testId = 'typo-graphy',
+  testId = 'typography',
   ...rest
 }) => {
   return (
