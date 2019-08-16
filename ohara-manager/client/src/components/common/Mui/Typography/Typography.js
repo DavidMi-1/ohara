@@ -18,9 +18,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
-const MuiTypography = ({ variant, children, testid, ...rest }) => {
+const MuiTypography = ({
+  variant,
+  children,
+  testId = 'typo-graphy',
+  ...rest
+}) => {
   return (
-    <Typography {...rest} variant={variant} data-testid={testid}>
+    <Typography {...rest} variant={variant} data-testid={testId}>
       {children}
     </Typography>
   );
@@ -29,7 +34,7 @@ const MuiTypography = ({ variant, children, testid, ...rest }) => {
 MuiTypography.propTypes = {
   variant: PropTypes.string.isRequired,
   children: PropTypes.any.isRequired,
-  testid: PropTypes.string,
+  testId: PropTypes.string,
 };
 
 export default MuiTypography;

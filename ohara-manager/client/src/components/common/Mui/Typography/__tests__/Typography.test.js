@@ -15,7 +15,7 @@
  */
 
 import React from 'react';
-import { cleanup, render, waitForElement } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import * as generate from 'utils/generate';
@@ -48,19 +48,15 @@ describe('<Typography />', () => {
   });
 
   it('renders typography with assigned style class', async () => {
-    const props = setup({ variant: 'h3', testid: 'mui-style' });
-    const { getByTestId } = await waitForElement(() =>
-      render(<Typography {...props} />),
-    );
+    const props = setup({ variant: 'h3', testId: 'mui-style' });
+    const { getByTestId } = render(<Typography {...props} />);
 
-    getByTestId(props.testid).className.includes('MuiTypography-h3');
+    getByTestId(props.testId).className.includes('MuiTypography-h3');
   });
 
   it('renders typography with content', async () => {
     const props = setup({ children: generate.message() });
-    const { getByText } = await waitForElement(() =>
-      render(<Typography {...props} />),
-    );
+    const { getByText } = render(<Typography {...props} />);
 
     getByText(props.children);
   });
