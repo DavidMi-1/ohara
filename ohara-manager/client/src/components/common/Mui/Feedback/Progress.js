@@ -23,6 +23,7 @@ import Stepper from '@material-ui/core/Stepper';
 import StepLabel from '@material-ui/core/StepLabel';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { helpers } from 'handlebars';
 
 const Progress = props => {
   const {
@@ -47,7 +48,11 @@ const Progress = props => {
 
   const progress = useRef(() => {});
   useEffect(() => {
+    console.log('pass here');
     progress.current = () => {
+      console.log('pass here1');
+      console.log(completed);
+      console.log(deleteType);
       if (completed < 100) {
         if (deleteType) {
           if (title === createTitle) {
@@ -77,12 +82,15 @@ const Progress = props => {
 
   useEffect(() => {
     const tick = () => {
+      console.log('pass here c');
       progress.current();
+      console.log('pass here d');
     };
     let timer;
     if (steps.length > activeStep && open) {
       timer = setInterval(tick, 500);
     }
+    console.log('open : ' + open);
     if (!open) {
       setCompleted(0);
       setColor();
@@ -106,8 +114,8 @@ const Progress = props => {
             type.error = true;
           }
           return (
-            <Step key={step}>
-              <StepLabel {...type}>{step}</StepLabel>
+            <Step key={step} data-testid={'testId'}>
+              <StepLabel {...type} data-testid={'testId-1'}>{step}</StepLabel>
             </Step>
           );
         })}
