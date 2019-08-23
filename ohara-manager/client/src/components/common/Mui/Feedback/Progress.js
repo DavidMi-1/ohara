@@ -23,7 +23,6 @@ import Stepper from '@material-ui/core/Stepper';
 import StepLabel from '@material-ui/core/StepLabel';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { helpers } from 'handlebars';
 
 const Progress = props => {
   const {

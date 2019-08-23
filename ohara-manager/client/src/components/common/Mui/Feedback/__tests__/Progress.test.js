@@ -1,10 +1,14 @@
 import React from 'react';
 import { cleanup, render, waitForElement } from '@testing-library/react';
-import { renderHook, act } from '@testing-library/react-hooks'
+//import {act} from 'react-dom/test-utils';
+import { renderHook, act } from '@testing-library/react-hooks';             
 import '@testing-library/jest-dom/extend-expect';
 
 import * as generate from 'utils/generate';
 import Progress from '../Progress';
+//import { act } from 'react-test-renderer';
+//import { from } from 'rxjs';
+//import { Container } from '@material-ui/core';
 
 const setup = (override = {}) => {
     return {
@@ -82,13 +86,24 @@ describe('<Progress />', () => {
         getByText('3');
     });
 
-    it('renders progress delete type', async () => {
-        const props = setup({steps: [generate.name(),generate.name(),generate.name()], activeStep:2, deleteType:true});
-        const {getAllByText,queryByText,debug,container} = await waitForElement(() => render(<Progress {...props} />));
-        debug();
+    fit('renders progress delete type',  () => {
+        const {result, rerender} = renderHook(({props}) => Progress(props),{
+            initialProps: { 
+                props: setup({steps: [generate.name(),generate.name(),generate.name()], activeStep:2}) 
+            }
+        });
+        rerender({props: setup({deleteType:true})})
+        //console.log(result.current.props.children[0]);
+        console.log(result.current.props.children[0].props.children);
+        console.log(result.current.props.children[1]);
+        console.log(result.current.props.children[1].props.children);
+        //console.log(result.current.props.children[2]);
+        //console.log(result.current.props.children[3]);
+        act(() => {
+            result.current.props.children[0].props.children = () => {return 'Deleting'};
+            
+        })
+        //expect(result.current.title).toBe('Deleting');
 
-        debug(container);
-        // expect(queryByText('1')).toBeNull();
-        //getAllByText(props.createTitle);
     });
 });
