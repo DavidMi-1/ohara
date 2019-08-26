@@ -16,7 +16,6 @@
 
 import React from 'react';
 import { cleanup, render, waitForElement } from '@testing-library/react';
-//import { renderHook } from '@testing-library/react-hooks';
 import '@testing-library/jest-dom/extend-expect';
 
 import * as generate from 'utils/generate';
@@ -60,7 +59,7 @@ describe('<Progress />', () => {
     getByText('2');
   });
 
-  it('renders progress active step 2/3', async () => {
+  it('renders progress active step 1/3', async () => {
     const props = setup({
       steps: [generate.name(), generate.name(), generate.name()],
       activeStep: 1,
@@ -82,7 +81,7 @@ describe('<Progress />', () => {
     getByText('3');
   });
 
-  it('renders progress active step 3/3', async () => {
+  it('renders progress active step 2/3', async () => {
     const props = setup({
       steps: [generate.name(), generate.name(), generate.name()],
       activeStep: 2,
@@ -103,20 +102,4 @@ describe('<Progress />', () => {
     expect(queryByText('2')).toBeNull();
     getByText('3');
   });
-
-  //wait for new React version to run testing-library-hooks api to test
-  //right now, the useEffect won't act during unit test so nothing changed after given new paramter value
-  /*xit('renders progress delete type', () => {
-    const { result, rerender } = renderHook(({ props }) => Progress(props), {
-      initialProps: {
-        props: setup({
-          steps: [generate.name(), generate.name(), generate.name()],
-          activeStep: 2,
-        }),
-      },
-    });
-    rerender({ props: setup({ deleteType: true }) });
-
-    expect(result.current.props.children[2].props.color).toBe('secondary');
-  });*/
 });
