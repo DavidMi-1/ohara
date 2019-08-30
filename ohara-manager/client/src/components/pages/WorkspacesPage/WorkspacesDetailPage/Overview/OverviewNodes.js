@@ -118,7 +118,7 @@ const OverviewNodes = props => {
                 {shouldRender && clusterType}
               </StyledTableCell>
               <StyledTableCell component="td">{nodeName}</StyledTableCell>
-              <StyledTableCell component="td" align="right" data-testid={`${clusterType}-${nodeName}-icon`}>
+              <StyledTableCell component="td" align="right">
                 <Tooltip
                   interactive
                   placement="right"
