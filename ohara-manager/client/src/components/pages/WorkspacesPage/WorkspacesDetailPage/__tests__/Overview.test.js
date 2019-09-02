@@ -225,11 +225,11 @@ describe('<Overview />', () => {
   it('renders the correct paper titles', async () => {
     const { getByText } = await renderWithProvider(<Overview {...props} />);
 
-    getByText(`Basic info`);
-    getByText(`Nodes`);
-    getByText(`Topics`);
-    getByText(`Connectors`);
-    getByText(`Stream Jars`);
+    getByText('Basic info');
+    getByText('Nodes');
+    getByText('Topics');
+    getByText('Connectors');
+    getByText('Stream Jars');
   });
 
   it('renders the correct basic info content', async () => {
@@ -279,7 +279,7 @@ describe('<Overview />', () => {
     getByText(replicaValue.toString());
   });
 
-  it('renders the correct connectors headers', async () => {
+  it('renders the correct connectors headers ', async () => {
     const { getAllByText } = await renderWithProvider(<Overview {...props} />);
 
     getAllByText('Name');
