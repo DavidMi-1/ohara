@@ -212,12 +212,6 @@ describe('<Overview />', () => {
     await waitForElement(() => renderWithProvider(<Overview {...props} />));
   });
 
-  it('renders the correct docker image name', async () => {
-    const { getByText } = await renderWithProvider(<Overview {...props} />);
-
-    getByText(`Worker Image: ${imageName}`);
-  });
-
   // The rest of the tests are covered in the end-to-end tests
   // since these tests require a LOT of mocking, it's probably to
   // test them in the end-to-end for now
