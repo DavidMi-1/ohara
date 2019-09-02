@@ -122,6 +122,194 @@ describe('<Overview />', () => {
         },
       ],
     },
+    {
+      className: 'com.island.ohara.connector.ftp.FtpSink',
+      definitions: [
+        {
+          defaultValue: 'sink',
+          displayName: 'kind',
+          documentation: 'kind of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'kind',
+          orderInGroup: 13,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+        {
+          defaultValue: '0.7.1-SNAPSHOT',
+          displayName: 'version',
+          documentation: 'version of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'version',
+          orderInGroup: 10,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+        {
+          defaultValue: 'root',
+          displayName: 'author',
+          documentation: 'author of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'author',
+          orderInGroup: 12,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+      ],
+    },
+    {
+      className: 'com.island.ohara.connector.ftp.FtpSource',
+      definitions: [
+        {
+          defaultValue: 'source',
+          displayName: 'kind',
+          documentation: 'kind of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'kind',
+          orderInGroup: 13,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+        {
+          defaultValue: '0.7.1-SNAPSHOT',
+          displayName: 'version',
+          documentation: 'version of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'version',
+          orderInGroup: 10,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+        {
+          defaultValue: 'root',
+          displayName: 'author',
+          documentation: 'author of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'author',
+          orderInGroup: 12,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+      ],
+    },
+    {
+      className: 'com.island.ohara.connector.hdfs.sink.HDFSSink',
+      definitions: [
+        {
+          defaultValue: 'sink',
+          displayName: 'kind',
+          documentation: 'kind of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'kind',
+          orderInGroup: 13,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+        {
+          defaultValue: '0.7.1-SNAPSHOT',
+          displayName: 'version',
+          documentation: 'version of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'version',
+          orderInGroup: 10,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+        {
+          defaultValue: 'root',
+          displayName: 'author',
+          documentation: 'author of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'author',
+          orderInGroup: 12,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+      ],
+    },
+    {
+      className: 'com.island.ohara.connector.jdbc.source.JDBCSourceConnector',
+      definitions: [
+        {
+          defaultValue: 'source',
+          displayName: 'kind',
+          documentation: 'kind of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'kind',
+          orderInGroup: 13,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+        {
+          defaultValue: '0.7.1-SNAPSHOT',
+          displayName: 'version',
+          documentation: 'version of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'version',
+          orderInGroup: 10,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+        {
+          defaultValue: 'root',
+          displayName: 'author',
+          documentation: 'author of connector',
+          editable: false,
+          group: 'core',
+          internal: false,
+          key: 'author',
+          orderInGroup: 12,
+          reference: 'NONE',
+          required: false,
+          tableKeys: [],
+          valueType: 'STRING',
+        },
+      ],
+    },
   ];
 
   const props = {
@@ -142,7 +330,7 @@ describe('<Overview />', () => {
       imageName: generate.name(),
       tags: {
         broker: {
-          name: generate.name(),
+          name: brokerClusterName,
           imageName: generate.name(),
         },
         zookeeper: {
@@ -229,9 +417,9 @@ describe('<Overview />', () => {
   it('renders the correct basic info content', async () => {
     const { getByText } = await renderWithProvider(<Overview {...props} />);
 
-    getByText('Worker Image: ' + imageName);
-    getByText('Broker Image: ' + broker.imageName);
-    getByText('Zookeeper Image: ' + zookeeper.imageName);
+    getByText('Worker Image: ' + props.worker.imageName);
+    getByText('Broker Image: ' + props.worker.tags.broker.imageName);
+    getByText('Zookeeper Image: ' + props.worker.tags.zookeeper.imageName);
   });
 
   it('renders the correct nodes headers', async () => {
@@ -284,6 +472,10 @@ describe('<Overview />', () => {
     const { getByText } = await renderWithProvider(<Overview {...props} />);
 
     getByText('ConsoleSink');
+    getByText('FtpSink');
+    getByText('FtpSource');
+    getByText('HDFSSink');
+    getByText('JDBCSourceConnector');
   });
 
   it('renders the correct stream jars headers', async () => {
