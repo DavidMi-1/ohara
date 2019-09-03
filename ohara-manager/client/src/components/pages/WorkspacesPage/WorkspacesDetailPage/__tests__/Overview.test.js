@@ -33,284 +33,16 @@ afterEach(cleanup);
 describe('<Overview />', () => {
   const brokerClusterName = generate.serviceName();
   const topics = generate.topics({ brokerClusterName });
-  const broker = {
-    clientPort: generate.port(),
-    deadNodes: [],
-    exporterPort: generate.port(),
-    imageName: 'oharastream/broker:0.7.0',
-    jmxPort: generate.port(),
-    lastModified: 1566888361731,
-    name: generate.serviceName(),
-    nodeNames: [
-      generate.serviceName(),
-      generate.serviceName(),
-      generate.serviceName(),
-    ],
-    state: 'RUNNING',
-    tags: {},
-    topicSettingDefinitions: [],
-    zookeeperClusterName: generate.serviceName(),
-  };
+  const broker = generate.broker();
 
-  const zookeeper = {
-    clientPort: generate.port(),
-    deadNodes: [],
-    electionPort: generate.port(),
-    imageName: 'oharastream/zookeeper:0.7.0',
-    lastModified: 1566888361733,
-    name: generate.serviceName(),
-    nodeNames: [generate.serviceName()],
-    peerPort: generate.port(),
-    state: 'RUNNING',
-    tags: {},
-  };
+  const zookeeper = generate.zookeeper();
 
   const jars = {
-    group: generate.name(),
-    lastModified: 1566898233000,
-    name: 'ohara-streamapp.jar',
+    name: generate.name(),
     size: generate.number(),
-    tags: {},
-    url: 'http://ohara-demo-00:12345/v0/downloadFiles/wk/ohara-streamapp.jar',
   };
 
-  const connectors = [
-    {
-      className: 'com.island.ohara.connector.console.ConsoleSink',
-      definitions: [
-        {
-          defaultValue: 'sink',
-          displayName: 'kind',
-          documentation: 'kind of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'kind',
-          orderInGroup: 13,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: 'unknown',
-          displayName: 'version',
-          documentation: 'version of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'version',
-          orderInGroup: 10,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: 'unknown',
-          displayName: 'author',
-          documentation: 'author of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'author',
-          orderInGroup: 12,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-      ],
-    },
-    {
-      className: 'com.island.ohara.connector.ftp.FtpSink',
-      definitions: [
-        {
-          defaultValue: 'sink',
-          displayName: 'kind',
-          documentation: 'kind of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'kind',
-          orderInGroup: 13,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: '0.7.1-SNAPSHOT',
-          displayName: 'version',
-          documentation: 'version of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'version',
-          orderInGroup: 10,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: 'root',
-          displayName: 'author',
-          documentation: 'author of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'author',
-          orderInGroup: 12,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-      ],
-    },
-    {
-      className: 'com.island.ohara.connector.ftp.FtpSource',
-      definitions: [
-        {
-          defaultValue: 'source',
-          displayName: 'kind',
-          documentation: 'kind of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'kind',
-          orderInGroup: 13,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: '0.7.1-SNAPSHOT',
-          displayName: 'version',
-          documentation: 'version of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'version',
-          orderInGroup: 10,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: 'root',
-          displayName: 'author',
-          documentation: 'author of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'author',
-          orderInGroup: 12,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-      ],
-    },
-    {
-      className: 'com.island.ohara.connector.hdfs.sink.HDFSSink',
-      definitions: [
-        {
-          defaultValue: 'sink',
-          displayName: 'kind',
-          documentation: 'kind of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'kind',
-          orderInGroup: 13,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: '0.7.1-SNAPSHOT',
-          displayName: 'version',
-          documentation: 'version of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'version',
-          orderInGroup: 10,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: 'root',
-          displayName: 'author',
-          documentation: 'author of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'author',
-          orderInGroup: 12,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-      ],
-    },
-    {
-      className: 'com.island.ohara.connector.jdbc.source.JDBCSourceConnector',
-      definitions: [
-        {
-          defaultValue: 'source',
-          displayName: 'kind',
-          documentation: 'kind of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'kind',
-          orderInGroup: 13,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: '0.7.1-SNAPSHOT',
-          displayName: 'version',
-          documentation: 'version of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'version',
-          orderInGroup: 10,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-        {
-          defaultValue: 'root',
-          displayName: 'author',
-          documentation: 'author of connector',
-          editable: false,
-          group: 'core',
-          internal: false,
-          key: 'author',
-          orderInGroup: 12,
-          reference: 'NONE',
-          required: false,
-          tableKeys: [],
-          valueType: 'STRING',
-        },
-      ],
-    },
-  ];
+  const connectors = generate.connectors();
 
   const props = {
     history: {
@@ -321,11 +53,7 @@ describe('<Overview />', () => {
       clientPort: generate.port(),
       jmxPort: generate.port(),
       connectors,
-      nodeNames: [
-        generate.serviceName(),
-        generate.serviceName(),
-        generate.serviceName(),
-      ],
+      nodeNames: [generate.serviceName()],
       brokerClusterName,
       imageName: generate.name(),
       tags: {
@@ -342,7 +70,7 @@ describe('<Overview />', () => {
   };
 
   jest.spyOn(useApi, 'useFetchApi').mockImplementation(url => {
-    if (url === URL.TOPIC_URL) {
+    if (url === `${URL.TOPIC_URL}?group=${props.worker.name}-topic`) {
       return {
         data: {
           data: {
@@ -396,7 +124,7 @@ describe('<Overview />', () => {
     }
   });
 
-  it('renders the page', async () => {
+  fit('renders the page', async () => {
     await waitForElement(() => renderWithProvider(<Overview {...props} />));
   });
 
@@ -404,7 +132,7 @@ describe('<Overview />', () => {
   // since these tests require a LOT of mocking, it's probably to
   // test them in the end-to-end for now
 
-  it('renders the correct paper titles', async () => {
+  fit('renders the correct paper titles', async () => {
     const { getByText } = await renderWithProvider(<Overview {...props} />);
 
     getByText('Basic info');
@@ -414,7 +142,7 @@ describe('<Overview />', () => {
     getByText('Stream Jars');
   });
 
-  it('renders the correct basic info content', async () => {
+  fit('renders the correct basic info content', async () => {
     const { getByText } = await renderWithProvider(<Overview {...props} />);
 
     getByText('Worker Image: ' + props.worker.imageName);
@@ -422,7 +150,7 @@ describe('<Overview />', () => {
     getByText('Zookeeper Image: ' + props.worker.tags.zookeeper.imageName);
   });
 
-  it('renders the correct nodes headers', async () => {
+  fit('renders the correct nodes headers', async () => {
     const { getByText, getAllByText } = await renderWithProvider(
       <Overview {...props} />,
     );
@@ -432,7 +160,7 @@ describe('<Overview />', () => {
     getAllByText('More info');
   });
 
-  it('renders the correct nodes content', async () => {
+  fit('renders the correct nodes content', async () => {
     const { getByText, getAllByText } = await renderWithProvider(
       <Overview {...props} />,
     );
@@ -441,7 +169,7 @@ describe('<Overview />', () => {
     getAllByText(props.worker.nodeNames[0] + ':' + props.worker.clientPort);
   });
 
-  it('renders the correct topics headers', async () => {
+  fit('renders the correct topics headers', async () => {
     const { getByText, getAllByText } = await renderWithProvider(
       <Overview {...props} />,
     );
@@ -451,7 +179,7 @@ describe('<Overview />', () => {
     getByText('Replication factor');
   });
 
-  it('renders the correct topics content', async () => {
+  fit('renders the correct topics content', async () => {
     const { getByText } = await renderWithProvider(<Overview {...props} />);
 
     getByText(topics[0].name);
@@ -461,14 +189,14 @@ describe('<Overview />', () => {
     getByText(replicaValue.toString());
   });
 
-  it('renders the correct connectors headers ', async () => {
+  fit('renders the correct connectors headers ', async () => {
     const { getAllByText } = await renderWithProvider(<Overview {...props} />);
 
     getAllByText('Name');
     getAllByText('More info');
   });
 
-  it('renders the correct connectors content', async () => {
+  fit('renders the correct connectors content', async () => {
     const { getByText } = await renderWithProvider(<Overview {...props} />);
 
     getByText('ConsoleSink');
@@ -478,18 +206,18 @@ describe('<Overview />', () => {
     getByText('JDBCSourceConnector');
   });
 
-  it('renders the correct stream jars headers', async () => {
+  fit('renders the correct stream jars headers', async () => {
     const { getAllByText } = await renderWithProvider(<Overview {...props} />);
 
     getAllByText('Jar name');
     getAllByText('File size(KB)');
   });
 
-  it('renders the correct stream jars content', async () => {
-    const { getByText } = await renderWithProvider(<Overview {...props} />);
+  fit('renders the correct stream jars content', async () => {
+    const { getAllByText } = await renderWithProvider(<Overview {...props} />);
 
-    getByText(jars.name);
+    getAllByText(jars.name);
     const fileSize = floor(divide(jars.size, 1024), 1);
-    getByText(fileSize.toString());
+    getAllByText(fileSize.toString());
   });
 });
