@@ -30,13 +30,12 @@ describe('PipelineEditPage', () => {
     cy.route('GET', 'api/pipelines/*').as('getPipeline');
     cy.route('PUT', 'api/pipelines/*').as('putPipeline');
     cy.route('GET', 'api/topics').as('getTopics');
-    cy.route('GET', 'api/workers').as('getWorkers');
-    cy.route('POST', '/api/connectors').as('postConnector');
     cy.route('GET', '/api/connectors/*').as('getConnector');
     cy.route('PUT', '/api/connectors/*').as('putConnector');
+    cy.route('POST', '/api/connectors/*').as('postConnector');
+    cy.route('PUT', '/api/validate/*').as('putValidateConnector');
 
-    const pipelineName = generate.serviceName({ prefix: 'pipeline' });
-
+    const pipelineName = generate.serviceName({ prefix: 'pi', length: 3 });
     cy.addTopic();
     cy.visit(URLS.PIPELINES)
       .getByTestId('new-pipeline')
@@ -49,6 +48,7 @@ describe('PipelineEditPage', () => {
       .click()
       .getByText('ADD')
       .click()
+      .wait('@postPipeline')
       .wait('@getPipeline');
   });
 
@@ -124,8 +124,6 @@ describe('PipelineEditPage', () => {
       .click()
       .wait(2000) // UI has one sec throttle, so we need to wait a bit time and then wait for the request
       .wait('@putPipeline');
-
-    cy.wait(1000); // Temp workaround, need this to make sure Cypress can get the right element to work on
 
     // Try to remove the topic
     cy.getByTestId('pipeline-graph')
@@ -485,5 +483,84 @@ describe('PipelineEditPage', () => {
           metricsCount,
         );
       });
+  });
+
+  it('should display an error icon with the correct URL links to logs page when fail to start a connector', () => {
+    cy.getByTestId('toolbar-sources')
+      .click()
+      .getByText(CONNECTOR_TYPES.ftpSource)
+      .click()
+      .getByText('ADD')
+      .click()
+      .getByPlaceholderText('myconnector')
+      .type(generate.serviceName({ prefix: 'connector' }))
+      .getByTestId('new-connector-dialog')
+      .within(() => {
+        cy.getByText('ADD').click();
+      })
+      .wait('@putPipeline')
+      .getByTestId('toolbar-topics')
+      .click()
+      .getByText('Please select...')
+      .click()
+      .get(`li[data-value=${Cypress.env('TOPIC_NAME')}]`)
+      .click()
+      .getByText('ADD')
+      .click()
+      .wait('@putPipeline');
+    cy.getByText('FtpSource')
+      .click({ force: true })
+      .wait('@getConnector')
+      .getByText('core')
+      .click({ force: true })
+      .getByText('Please select...')
+      .click()
+      .get(`li[data-value=${Cypress.env('TOPIC_NAME')}]`)
+      .click()
+      .wait(2000) // UI has one sec throttle, so we need to wait a bit time and then wait for the request
+      .wait('@putPipeline')
+      .getByText('common')
+      .click({ force: true })
+      .getByTestId('input_folder')
+      .type(generate.randomString())
+      .getByTestId('completed_folder')
+      .type(generate.randomString())
+      .getByTestId('error_folder')
+      .type(generate.randomString())
+      .getByTestId('ftp_hostname')
+      .type(generate.ip())
+      .getByTestId('ftp_port')
+      .type(generate.port())
+      .getByTestId('ftp_user_name')
+      .type(generate.userName())
+      .getByTestId('ftp_user_password')
+      .type(generate.password())
+      .wait(3000) // UI has one sec throttle, so we need to wait a bit time
+      .getByText('Test your configs')
+      .click()
+      .wait('@putValidateConnector')
+      .getByTestId('start-btn')
+      .click()
+      .wait('@putConnector')
+      .get('@getPipeline')
+      .then(xhr => {
+        const ftpSource = xhr.response.body.objects.find(
+          object => object.className === CONNECTOR_TYPES.ftpSource,
+        );
+        const connectorState = ftpSource.state;
+        expect(connectorState).to.equal('FAILED');
+      })
+      .getByTestId('status-icon')
+      .parent()
+      .should('have.attr', 'href')
+      .then(href => {
+        cy.visit(href);
+      });
+
+    cy.url().should('include', `/logs/workers/${Cypress.env('WORKER_NAME')}`);
+    cy.get('h2').should(
+      'have.text',
+      `Error log of cluster ${Cypress.env('WORKER_NAME')}`,
+    );
   });
 });

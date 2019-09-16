@@ -89,6 +89,7 @@ export const createHtml = params => {
   const statusIcon = getStatusIcon(connectorState);
   const displayKind = className.split('.').pop();
   const metricsHtml = createMetricsHtml(meters);
+  const iconTestId = statusIcon !== '' ? 'status-icon' : 'none-icon';
 
   const html = `<div class="node-graph ${topicClass} ${stateClass} ${activeClass}" data-testid="${kind}-${name}">
         <div class="basic-info">
@@ -100,7 +101,7 @@ export const createHtml = params => {
           </div>
         </div>
         <a class="status-icon" href="/logs/workers/${workerClusterName}" target="_blank">
-          <i class="fas ${statusIcon}"></i>
+          <i data-testid="${iconTestId}" class="fas ${statusIcon}"></i>
         </a>
         ${!isEmpty(meters) ? metricsHtml : ''}
       </div>`;

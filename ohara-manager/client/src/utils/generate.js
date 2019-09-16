@@ -265,6 +265,17 @@ export const serverHost = () => {
   return 'http://' + window.location.hostname;
 };
 
+export const randomString = ({ length = 5 } = {}) => {
+  let name = '';
+  const possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (let i = 0; i < length; i++) {
+    name += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return name;
+};
+
 export {
   name,
   id,
