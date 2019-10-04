@@ -147,7 +147,7 @@ $ ftp `ftp_server_ip`
 Name: `ftp_username`
 Password: `ftp_password`
 ```
-2. list all result CSV files in **/demo/output/wk01-T3/partition0** folder.
+2. list all result CSV files in **/demo/output/wk01-t3/partition0** folder.
 ```
 $ ftp ls /demo/output/wk01-T3/partition0
 /demo/output/wk01-T3/partition0/wk01-T3-0-000000000.csv
