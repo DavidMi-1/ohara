@@ -39,7 +39,7 @@
 **Add topics into workspace:**
 
 1. On the **Workspaces** > **wk01** > **TOPICS** tab, click the <kbd>NEW TOPIC</kbd> button.
-2. Enter “T3” in the **Topic name** field and enter default value in other fields, click <kbd>ADD</kbd>.
+2. Enter “t3” in the **Topic name** field and enter default value in other fields, click <kbd>ADD</kbd>.
  
 ## Create a new pipeline, add a jdbc source connector, topics and a ftp sink connector
 1. On the **Pipelines** page, click the <kbd>NEW PIPELINE</kbd> button.
