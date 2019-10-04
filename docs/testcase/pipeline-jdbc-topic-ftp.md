@@ -154,13 +154,13 @@ $ ftp ls /demo/output/wk01-t3/partition0
 ```
 3. get the CSV file from ftp server to local.
 ```
-$ ftp cd /demo/output/defult-T3/wk01
-$ ftp get wk01-T3-0-000000000.csv ./default-T3-0-000000000.csv
+$ ftp cd /demo/output/wk01-t3/wk01
+$ ftp get wk01-t3-0-000000000.csv ./wk01-t3-0-000000000.csv
 $ ftp bye
 ```
-4. View the content of **wk01-T3-0-000000000.csv**.
+4. View the content of **wk01-t3-0-000000000.csv**.
 ```
-$ cat wk01-T3-0-000000000.csv
+$ cat wk01-t3-0-000000000.csv
 index,name,age,id,timestamp
 1,Sam,33,H123378803,2019-03-08 18:52:00.0
 2,Jay,25,A159330943,2019-03-08 18:53:00.0
