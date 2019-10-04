@@ -150,7 +150,7 @@ Password: `ftp_password`
 2. list all result CSV files in **/demo/output/wk01-t3/partition0** folder.
 ```
 $ ftp ls /demo/output/wk01-t3/partition0
-/demo/output/wk01-T3/partition0/wk01-T3-0-000000000.csv
+/demo/output/wk01-t3/partition0/wk01-t3-0-000000000.csv
 ```
 3. get the CSV file from ftp server to local.
 ```
