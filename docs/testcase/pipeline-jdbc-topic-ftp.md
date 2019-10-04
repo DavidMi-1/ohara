@@ -19,7 +19,7 @@
 4. Enter `<node_user>` in the **User** field.
 5. Enter `<node_password>` in the **Password** field.
 6. Click <kbd>TEST CONNECTION</kbd>.
-7. If the connection has been successful, click <kbd>SAVE</kbd>.
+7. If the connection has been successful, click <kbd>ADD</kbd>.
 8. Repeat the above steps as many times **until you have added three nodes**. 
 
 **Create a new workspace:**
