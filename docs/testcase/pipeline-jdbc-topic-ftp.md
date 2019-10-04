@@ -46,7 +46,7 @@
 2. Enter “secondpipeline” in the **Pipeline name** field, select “wk01” at the Workspace name field, click <kbd>ADD</kbd>.
 3. Click the **Add a source connector** icon, select the **com.island.ohara.connector.jdbc.source.JDBCSourceConnector** item, click <kbd>ADD</kbd>.
 4. Enter “jdbcsource” in the **myconnector** field, click <kbd>ADD</kbd> button.
-5. Click the **Add a topic** icon, select the **T3** item, click <kbd>ADD</kbd>.
+5. Click the **Add a topic** icon, select the **t3** item, click <kbd>ADD</kbd>.
 6. Click the **Add a sink connector** icon, select the **com.island.ohara.connector.ftp.FtpSink** item, click <kbd>ADD</kbd> button.
 7. Enter “ftpsink” in the **Connector name** field, click <kbd>ADD</kbd> button.
 
@@ -61,7 +61,7 @@
     4. Enter “person_data” in the **table name** field.
     5. Enter “timestamp” in the **timestamp column name** field.
     6. Enter 10 to **JDBC flush Size**.
-3. Select the **CORE** tab, select the **T3** option in the **Topics** field.
+3. Select the **CORE** tab, select the **t3** option in the **Topics** field.
 
 **Setup the ftp_sink connector:**
 
@@ -74,7 +74,7 @@
     5. Enter `<ftp_server_port>` in the **Port of FTP Server** field.
     6. Enter `ftp_username` in the **User of FTP Server** field.
     7. Enter `ftp_password` in the **Password of FTP Server** field.
-4. Select the **CORE** tab, select the **T3** option int the **Topics** field.
+4. Select the **CORE** tab, select the **t3** option int the **Topics** field.
 
 ## Prepare the required output folder on the FTP server
 1. Open a terminal, login to FTP server.
